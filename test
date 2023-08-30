@@ -1,0 +1,21 @@
+Please translate thisnow immediately.
+
+# Define the target folder
+$targetFolder = "O:\ZRH\CF1\01 Finance Organisation\02 HR\User Photos\Documents\Target Profile Pictures"
+
+# Read the user IDs from the text file located within the target folder
+$userIDs = Get-Content "$targetFolder\user_ids.txt"
+
+# Create the target folder if it doesn't exist
+If (!(Test-Path $targetFolder)) {
+    New-Item -Path $targetFolder -ItemType Directory
+}
+
+# Loop through each user ID and copy the file
+foreach ($userID in $userIDs) {
+    $sourceURL = "\\mysite.juliusbaer.com\User Photos\Profile Pictures\$($userID)_LThumb.jpg"
+    $destinationPath = "$targetFolder\$($userID)_LThumb.jpg"
+
+    # Copy the file
+    Copy-Item -Path $sourceURL -Destination $destinationPath
+}
